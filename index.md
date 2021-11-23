@@ -1,37 +1,33 @@
-## Welcome to GitHub Pages
+## PostService
 
-You can use the [editor on GitHub](https://github.com/Madonox/PostService/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+PostService is a library made for Roblox by Madonox.  This library exists to add more functionality to RemoteEvents and RemoteFunctions, with some of the primary functions being able to send bulk remote event fires (fire one remote, but send over multiple actions), create and register remotes by script with ease, interact with a pre-made central channel, and much more!
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Installing the Library
 
-### Markdown
+Installing the library is quite simple, simply just insert the model linked below into your Roblox game, place it into ReplicatedStorage, and you're done!
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### Utilizing the API
 
-```markdown
-Syntax highlighted code block
+In order to begin utilzing the Library, you must firstly install it.  In order to install it, see the steps above.  Once you have done that, you may begin to script with it!
 
-# Header 1
-## Header 2
-### Header 3
+#### Requiring the API:
 
-- Bulleted
-- List
+The first step to begin programming with the API is to firstly require the main file, below is some example code:
+```lua
+local PostService = require(game.ReplicatedStorage.PostService.PostService)
 
-1. Numbered
-2. List
+PostService.start()
 
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+local server = PostService.get() -- If it's used in a Local Script, it would return the client methods instead.
 ```
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+#### Defining your first remote connection:
 
-### Jekyll Themes
+Now, in order to setup your first remote connection, you will want to use the `OpenNetwork` method on the server, and the `OpenConnection` method on client.
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Madonox/PostService/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+```lua
+server.OpenNetwork(nil,function(player,...) -- The first argument would be a RemoteEvent or RemoteFunction, if you wished to assign this to a pre-existing one.
+  print(player.Name)
+  print(...)
+end)
+```
