@@ -31,3 +31,5 @@ server.OpenNetwork(nil,function(player,...) -- The first argument would be a Rem
   print(...)
 end)
 ```
+
+**Note:** The client method, OpenConnection takes the same arguments as the server, just without the player argument on the function you supply.
