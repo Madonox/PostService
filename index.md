@@ -26,10 +26,20 @@ local server = PostService.get() -- If it's used in a Local Script, it would ret
 Now, in order to setup your first remote connection, you will want to use the `OpenNetwork` method on the server, and the `OpenConnection` method on client.
 
 ```lua
-server.OpenNetwork(nil,function(player,...) -- The first argument would be a RemoteEvent or RemoteFunction, if you wished to assign this to a pre-existing one.
+-- The first argument would be a RemoteEvent or RemoteFunction, if you wished to assign this to a pre-existing one.
+local NetworkInstance = server.OpenNetwork(nil,function(player,...)
   print(player.Name)
   print(...)
 end)
 ```
 
 **Note:** The client method, OpenConnection takes the same arguments as the server, just without the player argument on the function you supply.
+
+##### Using the NetworkInstance:
+
+The NetworkInstance has a lot of methods that go with it, from the ability to toggle if it can be triggered, to destroying it.
+Below are some examples of how to use it:
+```lua
+NetworkInstance:Close()  -- Will prevent it from being fired.
+NetworkInstance:Open()  -- Will allow it to be fired, it is assigned to this state by default.
+NetworkInstance:Destroy()  -- Deletes the NetworkInstance, you will not be able to interact with it anymore.
