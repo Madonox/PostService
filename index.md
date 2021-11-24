@@ -42,4 +42,5 @@ Below are some examples of how to use it:
 ```lua
 NetworkInstance:Close()  -- Will prevent it from being fired.
 NetworkInstance:Open()  -- Will allow it to be fired, it is assigned to this state by default.
-NetworkInstance:Destroy()  -- Deletes the NetworkInstance, you will not be able to interact with it anymore.
+NetworkInstance:Destroy(true)  -- Deletes the NetworkInstance, you will not be able to interact with it anymore.  Setting the first argument to true will [SEE BELOW]
+-- delete the instance as well (the RemoteEvent or RemoteFunction).
