@@ -44,3 +44,10 @@ NetworkInstance:Close()  -- Will prevent it from being fired.
 NetworkInstance:Open()  -- Will allow it to be fired, it is assigned to this state by default.
 NetworkInstance:Destroy(true)  -- Deletes the NetworkInstance, you will not be able to interact with it anymore.  Setting the first argument to true will [SEE BELOW]
 -- delete the instance as well (the RemoteEvent or RemoteFunction).
+```
+The NetworkInstance also has some properties that go with it, below are a list of properties:
+**Note:** None of these properties are made to be assigned new values, they should only be read!
+```lua
+print(NetworkInstance.closed)  -- Will print true if the NetworkInstance is currently closed.
+print(NetworkInstance.instance.Name)  -- The RemoteEvent or RemoteFunction.
+```
