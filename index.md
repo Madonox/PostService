@@ -2,6 +2,8 @@
 
 PostService is a library made for Roblox by Madonox.  This library exists to add more functionality to RemoteEvents and RemoteFunctions, with some of the primary functions being able to send bulk remote event fires (fire one remote, but send over multiple actions), create and register remotes by script with ease, interact with a pre-made central channel, and much more!
 
+**NOTICE:** This service is in **ALPHA** release, expect more features to be added quite soon!
+
 ### Installing the Library
 
 Installing the library is quite simple, simply just insert the model linked below into your Roblox game, place it into ReplicatedStorage, and you're done!
@@ -18,36 +20,64 @@ local PostService = require(game.ReplicatedStorage.PostService.PostService)
 
 PostService.start()
 
-local server = PostService.get() -- If it's used in a Local Script, it would return the client methods instead.
+local Server = PostService.get() -- If it's used in a Local Script, it would return the Server methods instead.
 ```
 
-#### Defining your first remote connection:
+#### Creating your first Remote Connection:
 
-Now, in order to setup your first remote connection, you will want to use the `OpenNetwork` method on the server, and the `OpenConnection` method on client.
+Now, in order to setup your first remote connection, you will want to use the `.add` method.
+Method arguments:
+`Server.add(MethodName,function)` -- Does not return.
+
 
 ```lua
--- The first argument would be a RemoteEvent or RemoteFunction, if you wished to assign this to a pre-existing one.
-local NetworkInstance = server.OpenNetwork(nil,function(player,...)
-  print(player.Name)
-  print(...)
+Server.add("TestArgument",function(player,argument1,argument2,...)
+	print(argument1)
+	print(argument2)
+	print(...)
+end)
+-- Client method:
+Client.add("TestArgument",function(argument1,argument2,...) -- Client does NOT get a player.
+	print(argument1)
+	print(argument2)
+	print(...)
 end)
 ```
 
-**Note:** The client method, OpenConnection takes the same arguments as the server, just without the player argument on the function you supply.
+**Note:** The Client method takes the same arguments as the Server, it just does not get a player instance passed as the first argument.
 
-##### Using the NetworkInstance:
+#### Firing Connections:
 
-The NetworkInstance has a lot of methods that go with it, from the ability to toggle if it can be triggered, to destroying it.
-Below are some examples of how to use it:
+Now, in order to fire a method to the server or client and vice versa, you'll want to use the `.fire` method.
+Method arguments:
+`Server.fire(player(s),MethodName,...)` -- Does not return.
+
 ```lua
-NetworkInstance:Close()  -- Will prevent it from being fired.
-NetworkInstance:Open()  -- Will allow it to be fired, it is assigned to this state by default.
-NetworkInstance:Destroy(true)  -- Deletes the NetworkInstance, you will not be able to interact with it anymore.  Setting the first argument to true will [SEE BELOW]
--- delete the instance as well (the RemoteEvent or RemoteFunction).
+Server.fire(game.Players.Player1,"TestArgument","argument 1","argument 2","argument 3","etc")
+Server.fire({game.Players.Player1,game.Players.Player2},"TestArgument","argument 1","argument 2","argument 3","etc")
+-- Client method:
+Client.fire("TestArgument","argument 1","argument 2","argument 3","etc")
 ```
-The NetworkInstance also has some properties that go with it, below are a list of properties:
-**Note:** None of these properties are made to be assigned new values, they should only be read!
+
+**Note:** If you are firing multiple users at once from the server, please put their player instances in a table.
+
+#### Fetching Data from Connections:
+
+If you wish to get the return value from a pre-defined method, you can use the `.get` method.
+Method arguments:
+`Server.get(player,methodName,...)` -- Returns value sent by client.
+
 ```lua
-print(NetworkInstance.closed)  -- Will print true if the NetworkInstance is currently closed.
-print(NetworkInstance.instance.Name)  -- The RemoteEvent or RemoteFunction.
+-- Client setup:
+Client.add("TestArgument_Returns",function(...)
+	return table.pack(...)
+end)
+-- Server setup:
+Server.add("TestArgument_Returns",function(...)
+	return table.pack(...)
+end)
+-- Server method:
+local responseServer = Server.get(game.Players.Player1,"TestArgument_Returns","argument 1","argument 2","argument 3","etc")
+-- Client method:
+local responseClient = Client.get("TestArgument_Returns","argument 1","argument 2","argument 3","etc")
 ```
