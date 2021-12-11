@@ -86,7 +86,7 @@ local responseClient = Client.get("TestArgument_Returns","argument 1","argument 
 
 Now that you understand how the basics of PostService work, we'll get into one of the core functions of PostService, bulk firing.  Bulk firing allows you to send multiple pieces of Event data at once, with one fire.  This can be done using the `.bulkFire` method.
 Method arguments:
-`Server.bulkFire(player(s),{{methodName,...},{methodName2,...},{etc etc}}` -- No return value.
+`Server.bulkFire(player(s),{{methodName,...},{methodName2,...},{"etc etc"}}` -- No return value.
 
 ```lua
 Server.bulkFire(game.Players.Player1,{{"TestArgument","argument 1","argument 2","argument 3"},{"TestArgument","second argument 1","second argument 2","second argument 3"}})
