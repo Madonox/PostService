@@ -1,3 +1,4 @@
+
 ## PostService
 
 PostService is a library made for Roblox by Madonox.  This library exists to add more functionality to RemoteEvents and RemoteFunctions, with some of the primary functions being able to send bulk remote event fires (fire one remote, but send over multiple actions), create and register remotes by script with ease, interact with a pre-made central channel, and much more!
@@ -86,10 +87,10 @@ local responseClient = Client.get("TestArgument_Returns","argument 1","argument 
 
 Now that you understand how the basics of PostService work, we'll get into one of the core functions of PostService, bulk firing.  Bulk firing allows you to send multiple pieces of Event data at once, with one fire.  This can be done using the `.bulkFire` method.
 Method arguments:
-`Server.bulkFire(player(s),{{methodName,...},{methodName2,...},{"etc etc"}}` -- No return value.
+`Server.bulkFire(player(s),{ {methodName,...},{methodName2,...},{"etc etc"} }` -- No return value.
 
 ```lua
-Server.bulkFire(game.Players.Player1,{{"TestArgument","argument 1","argument 2","argument 3"},{"TestArgument","second argument 1","second argument 2","second argument 3"}})
+Server.bulkFire(game.Players.Player1,{ {"TestArgument","argument 1","argument 2","argument 3"},{"TestArgument","second argument 1","second argument 2","second argument 3"} })
 -- Client method:
-Client.bulkFire({{"TestArgument","argument 1","argument 2","argument 3"},{"TestArgument","second argument 1","second argument 2","second argument 3"}})
+Client.bulkFire({ {"TestArgument","argument 1","argument 2","argument 3"},{"TestArgument","second argument 1","second argument 2","second argument 3"} })
 ```
